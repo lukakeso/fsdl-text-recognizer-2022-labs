@@ -50,7 +50,7 @@ def make_frontend(
 
     allow_flagging = "never"
 
-    readme = _load_readme(with_logging=allow_flagging == "manual")
+    readme = _load_readme(with_logging=allow_flagging == "manual", full_readme=False)
 
     # build a basic browser interface to a Python function
     frontend = gr.Interface(
@@ -136,10 +136,12 @@ class PredictorBackend:
         logging.info(f"PRED >begin\n{pred}\nPRED >end")
 
 
-def _load_readme(with_logging=False):
+def _load_readme(with_logging=False, full_readme=True):
     with open(README) as f:
         lines = f.readlines()
-        if not with_logging:
+        if not full_readme:
+            lines = lines[: lines.index("<!-- description content below -->")]
+        elif not with_logging:
             lines = lines[: lines.index("<!-- logging content below -->\n")]
 
         readme = "".join(lines)
