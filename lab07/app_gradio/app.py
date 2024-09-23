@@ -140,7 +140,7 @@ def _load_readme(with_logging=False, full_readme=True):
     with open(README) as f:
         lines = f.readlines()
         if not full_readme:
-            lines = lines[: lines.index("<!-- description content below -->\n")]
+            lines = lines[: 1]
         elif not with_logging:
             lines = lines[: lines.index("<!-- logging content below -->\n")]
 
